@@ -1,38 +1,40 @@
 function validatePessoa (pessoa) {
 
+  if (!pessoa)
+    return false
+
   if (pessoa != null)	{
 
-    if (pessoa.cpf != null) {
+    if (!pessoa.name || !pessoa.cpf || !pessoa.telefonesFixos) {
+      return false
+    }
 
-      if (pessoa.name != null) 	{
+    if (pessoa.telefonesFixos != null) {
 
-        if (pessoa.telefonesFixos != null) {
+      if(!Array.isArray(pessoa.telefonesFixos) || !pessoa.telefonesFixos.length) {
+        return false
+      }
 
-          pessoa.telefonesFixos.forEach(function (telefone) {
+      pessoa.telefonesFixos.forEach(function (telefone) {
 
-            if (telefone != null) {
+        if (telefone != null) {
 
-              if (telefone != "") {
-                  validate = false
-                  return validate
-              } else {
-                if (telefone.length < 7) {
-                  validate = false
-                  return validate
-                }
-              }
+          if (telefone != "") {
+              return false
+          }
+          if (telefone.length < 7) {
+            return false
+          }
 
-            } else {
+        } else {
 
-              validate = false
-              return validate
-
-            }
-
-          })
+          validate = false
+          return validate
 
         }
-      }
+
+      })
+
     }
 
   }
